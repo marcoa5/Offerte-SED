@@ -156,7 +156,7 @@ Module Module1
 
 
         Dim NomeFa As String = "Offerta " & Form1.Label7.Text & " - " & Form1.ListBox1.SelectedItem & "- " & Form1.ComboBox1.Text
-        If My.User.Name = "EPIROC\iycma" Then
+        If My.User.Name = "EPIROC\iycma" Or My.User.Name = "EPIROC\iycgip" Then
             Dim Scelta
             Scelta = MsgBox("Vuoi il Word?", vbYesNo, "Scelta")
             If Scelta = vbYes Then
