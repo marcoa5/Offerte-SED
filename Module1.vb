@@ -286,7 +286,6 @@ Module Module1
 
             End If
         Next
-
     End Sub
 
 
@@ -362,7 +361,6 @@ Module Module1
 
     Sub ScriviSP()
         Dim Path As String = Indiriz & "MRProductsalessupport/SED/"
-
         Dim context As New ClientContext(Path)
         Dim testList As List = context.Web.Lists.GetByTitle("Registro")
         Dim itemCreateInfo As New ListItemCreationInformation
@@ -378,5 +376,7 @@ Module Module1
         oListItem.Update()
         context.ExecuteQuery()
         Form1.Close()
+        Form3.Close()
     End Sub
+
 End Module
