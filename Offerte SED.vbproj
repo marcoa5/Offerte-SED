@@ -27,9 +27,9 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\iycsitfs0001\IYC_CMTEXT\arato\Offerte\</InstallUrl>
     <UpdateUrl>\\iycsitfs0001\IYC_CMTEXT\arato\Offerte\</UpdateUrl>
-    <MinimumRequiredVersion>1.2.0.4</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.2.0.5</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

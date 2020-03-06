@@ -33,11 +33,10 @@
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If MsgBox("Vuoi modificare le condizioni standard?", vbYesNo, "Modifica") = vbYes Then
-            Form3.Show()
+            Form3.ShowDialog()
         Else
             Crea_File()
         End If
-        Form3.Show()
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
