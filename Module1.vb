@@ -80,10 +80,14 @@ Module Module1
     End Property
 
     Sub Main()
-        Numero_OFF()
-        Elenco_Mac()
-        SP()
-        Apri_SAM()
+        Try
+            Numero_OFF()
+            Elenco_Mac()
+            SP()
+            Apri_SAM()
+        Catch Ex As ClientRequestException
+            MsgBox($"Verifica di essere connesso alla rete aziendale {vbCr}{vbCr}Errore: {Ex.Message}")
+        End Try
 
     End Sub
 
