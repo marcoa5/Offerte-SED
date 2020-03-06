@@ -84,7 +84,7 @@ Partial Class Form3
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(93, 27)
         Me.Button2.TabIndex = 59
-        Me.Button2.Text = "Annulla"
+        Me.Button2.Text = "Indietro"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Label1

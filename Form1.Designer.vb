@@ -127,7 +127,7 @@ Partial Class Form1
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(93, 27)
         Me.Button1.TabIndex = 8
-        Me.Button1.Text = "Compila"
+        Me.Button1.Text = "Condizioni"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'TextBox3
