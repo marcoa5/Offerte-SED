@@ -80,13 +80,18 @@ Module Module1
     End Property
 
     Sub Main()
+Inizio:
         Try
             Numero_OFF()
             Elenco_Mac()
             SP()
             Apri_SAM()
         Catch Ex As ClientRequestException
-            MsgBox($"Verifica di essere connesso alla rete aziendale {vbCr}{vbCr}Errore: {Ex.Message}")
+            If MsgBox($"Verifica di essere connesso alla rete aziendale {vbCr}{vbCr}Errore: {Ex.Message}", vbRetryCancel, "Errore") = vbRetry Then
+                GoTo Inizio
+            Else
+                Form1.Close()
+            End If
         End Try
 
     End Sub
@@ -383,4 +388,7 @@ Module Module1
         Form3.Close()
     End Sub
 
+
 End Module
+
+
