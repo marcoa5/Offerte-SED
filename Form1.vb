@@ -83,4 +83,5 @@
     Private Sub ListBox1_MouseUp(sender As Object, e As MouseEventArgs) Handles ListBox1.MouseUp
         Controlla()
     End Sub
+
 End Class

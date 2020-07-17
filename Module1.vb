@@ -5,6 +5,7 @@ Imports Microsoft
 Imports System.IO
 Imports System.Text
 Imports System.Xml
+Imports Microsoft.VisualBasic.FileIO
 
 
 
@@ -165,27 +166,28 @@ Inizio:
 
 
         Dim NomeFa As String = "Offerta " & Form1.Label7.Text & " - " & Form1.ListBox1.SelectedItem & "- " & Form1.ComboBox1.Text
+        mDoc.SaveAs2(path & NomeFa & ".docx", Word.WdSaveFormat.wdFormatDocumentDefault)
+
+        mDoc.SaveAs2(path & NomeFa & ".pdf", Word.WdSaveFormat.wdFormatPDF)
+        mDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges)
+        mW.Quit()
+        CaricaSP(path & NomeFa & ".docx")
         If My.User.Name = "EPIROC\iycma" Or My.User.Name = "EPIROC\iycgip" Then
             Dim Scelta
             Scelta = MsgBox("Vuoi il Word?", vbYesNo, "Scelta")
             If Scelta = vbYes Then
-                mDoc.SaveAs2(path & NomeFa & ".docx", Word.WdSaveFormat.wdFormatDocumentDefault)
-                'MsgBox("Offerta creata in " & My.Computer.FileSystem.SpecialDirectories.Desktop,, "Offerta Creata")
-            Else
-                mDoc.SaveAs2(path & NomeFa & ".pdf", Word.WdSaveFormat.wdFormatPDF)
 
-                'MsgBox("Offerta creata in " & My.Computer.FileSystem.SpecialDirectories.Desktop,, "Offerta Creata")
+            Else
+                Kill(path & NomeFa & ".docx")
             End If
         Else
-            mDoc.SaveAs2(path & NomeFa & ".pdf", Word.WdSaveFormat.wdFormatPDF)
-
+            Kill(path & NomeFa & ".docx")
             MsgBox("Offerta creata in " & My.Computer.FileSystem.SpecialDirectories.Desktop,, "Offerta Creata")
 
         End If
 
         'mDoc.SaveAs2(path & NomeFa & ".pdf", Word.WdSaveFormat.wdFormatPDF)
-        mDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges)
-        mW.Quit()
+
         ScriviSP()
         On Error Resume Next
         Kill(path & NomeF)
@@ -386,6 +388,21 @@ Inizio:
         context.ExecuteQuery()
         Form1.Close()
         Form3.Close()
+    End Sub
+
+    Sub CaricaSP(fileName As String)
+        Dim Path As String = Indiriz & "MRProductsalessupport/SED/"
+        Dim Path1 As String = Path & "SED_Offerte_docx"
+        Dim context As New ClientContext(Path)
+        Dim testList As List = context.Web.Lists.GetByTitle("SED_Offerte_docx")
+        context.Load(testList.RootFolder)
+
+        Dim newFile = New FileCreationInformation()
+        newFile.Overwrite = True
+        newFile.Content = My.Computer.FileSystem.ReadAllBytes(fileName)
+        newFile.Url = System.IO.Path.GetFileName(fileName)
+        testList.RootFolder.Files.Add(newFile)
+        context.ExecuteQuery()
     End Sub
 
 
