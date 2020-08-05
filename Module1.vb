@@ -163,16 +163,27 @@ Inizio:
         mDoc.FormFields(Campi(48, 0)).Result = Scelta1(0, 4)
         mDoc.FormFields(Campi(49, 0)).Result = Scelta1(0, 23)
         mDoc.FormFields(Campi(50, 0)).Result = Scelta1(0, 5)
-
-
-        Dim NomeFa As String = "Offerta " & Form1.Label7.Text & " - " & Form1.ListBox1.SelectedItem & "- " & Form1.ComboBox1.Text
+        Dim Cl
+        If Right(Form1.ComboBox1.Text, 1) = "." Then
+            Cl = Left(Form1.ComboBox1.Text, Len(Form1.ComboBox1.Text) - 1)
+        Else
+            Cl = Form1.ComboBox1.Text
+        End If
+        Dim NomeFa As String = "Offerta " & Form1.Label7.Text & " - " & Form1.ListBox1.SelectedItem & "- " & Cl
         mDoc.SaveAs2(path & NomeFa & ".docx", Word.WdSaveFormat.wdFormatDocumentDefault)
 
         mDoc.SaveAs2(path & NomeFa & ".pdf", Word.WdSaveFormat.wdFormatPDF)
         mDoc.Close(Word.WdSaveOptions.wdDoNotSaveChanges)
         mW.Quit()
-        CaricaSP(path & NomeFa & ".docx")
-        If My.User.Name = "EPIROC\iycma" Or My.User.Name = "EPIROC\iycgip" Then
+        Try
+            CaricaSP(path & NomeFa & ".docx")
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        Finally
+
+        End Try
+        ScriviSP()
+            If My.User.Name = "EPIROC\iycma" Or My.User.Name = "EPIROC\iycgip" Then
             Dim Scelta
             Scelta = MsgBox("Vuoi il Word?", vbYesNo, "Scelta")
             If Scelta = vbYes Then
@@ -188,9 +199,11 @@ Inizio:
 
         'mDoc.SaveAs2(path & NomeFa & ".pdf", Word.WdSaveFormat.wdFormatPDF)
 
-        ScriviSP()
-        On Error Resume Next
-        Kill(path & NomeF)
+
+        Try
+            Kill(path & NomeF)
+        Finally
+        End Try
 
     End Sub
 
@@ -396,7 +409,6 @@ Inizio:
         Dim context As New ClientContext(Path)
         Dim testList As List = context.Web.Lists.GetByTitle("SED_Offerte_docx")
         context.Load(testList.RootFolder)
-
         Dim newFile = New FileCreationInformation()
         newFile.Overwrite = True
         newFile.Content = My.Computer.FileSystem.ReadAllBytes(fileName)
