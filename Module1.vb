@@ -178,28 +178,27 @@ Inizio:
         Try
             CaricaSP(path & NomeFa & ".docx")
         Catch ex As Exception
-            Console.WriteLine(ex.Message)
-        Finally
-
+            MsgBox(ex.Message)
         End Try
-        ScriviSP()
-            If My.User.Name = "EPIROC\iycma" Or My.User.Name = "EPIROC\iycgip" Then
+        Try
+            ScriviSP()
+        Catch ex1 As Exception
+            MsgBox(ex1.Message)
+        End Try
+
+        If My.User.Name = "EPIROC\iycma" Or My.User.Name = "EPIROC\iycgip" Then
             Dim Scelta
             Scelta = MsgBox("Vuoi il Word?", vbYesNo, "Scelta")
-            If Scelta = vbYes Then
-
-            Else
-                Kill(path & NomeFa & ".docx")
-            End If
+            If Scelta = vbNo Then Kill(path & NomeFa & ".docx")
+            MsgBox("Offerta creata in " & My.Computer.FileSystem.SpecialDirectories.Desktop,, "Offerta Creata")
         Else
             Kill(path & NomeFa & ".docx")
             MsgBox("Offerta creata in " & My.Computer.FileSystem.SpecialDirectories.Desktop,, "Offerta Creata")
-
         End If
 
-        'mDoc.SaveAs2(path & NomeFa & ".pdf", Word.WdSaveFormat.wdFormatPDF)
 
-
+        Form1.Close()
+        Form3.Close()
         Try
             Kill(path & NomeF)
         Finally
@@ -399,8 +398,6 @@ Inizio:
         oListItem("hn0t") = Form1.ComboBox2.Text
         oListItem.Update()
         context.ExecuteQuery()
-        Form1.Close()
-        Form3.Close()
     End Sub
 
     Sub CaricaSP(fileName As String)
