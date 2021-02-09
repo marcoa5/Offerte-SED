@@ -186,16 +186,10 @@ Inizio:
             MsgBox(ex1.Message)
         End Try
 
-        If My.User.Name = "EPIROC\iycma" Or My.User.Name = "EPIROC\iycgip" Then
-            Dim Scelta
-            Scelta = MsgBox("Vuoi il Word?", vbYesNo, "Scelta")
-            If Scelta = vbNo Then Kill(path & NomeFa & ".docx")
-            MsgBox("Offerta creata in " & My.Computer.FileSystem.SpecialDirectories.Desktop,, "Offerta Creata")
-        Else
-            Kill(path & NomeFa & ".docx")
-            MsgBox("Offerta creata in " & My.Computer.FileSystem.SpecialDirectories.Desktop,, "Offerta Creata")
-        End If
-
+        Dim Scelta
+        Scelta = MsgBox("Vuoi il Word?", vbYesNo, "Scelta")
+        If Scelta = vbNo Then Kill(path & NomeFa & ".docx")
+        MsgBox("Offerta creata in " & My.Computer.FileSystem.SpecialDirectories.Desktop,, "Offerta Creata")
 
         Form1.Close()
         Form3.Close()
