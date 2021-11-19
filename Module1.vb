@@ -101,7 +101,7 @@ Inizio:
     Sub Crea_File()
         Dim Codice As String = ""
         Dim Path1 As String = Indiriz & "MRProductsalessupport/SED/"
-        Dim I, P As Integer
+        'Dim I, P As Integer
         Dim context As New ClientContext(Path1)
         Dim testList As List = context.Web.Lists.GetByTitle("Codice")
         Dim query As CamlQuery = CamlQuery.CreateAllItemsQuery(10000)
@@ -259,31 +259,34 @@ Inizio:
 
         For Each listItem As ListItem In items
             Form2.ProgressBar1.Value = I
-
-
-            P = 0
-
+            P = -2
             For Each Fiels In listItem.FieldValues
-                Dim Nome As String = Fiels.Key
+                Dim Nome = Fiels.Key
+
                 On Error Resume Next
-                Macchina1(I, P) = listItem("" & Nome & "")
+                If P >= 0 Then
+                    If Nome.GetType Is GetType(String) Then
+                        Macchina1(I, P) = listItem(Nome)
+                    Else
+                        Macchina1(I, P) = ""
+                    End If
+                End If
+
                 P += 1
             Next
 
 
             If I = 0 Then Form1.ListBox1.Items.Add(listItem("Title"))
             If Form1.ListBox1.Items.Contains(listItem("Title")) = False Then Form1.ListBox1.Items.Add(listItem("Title"))
-
             I += 1
         Next
-
         Form2.Close()
     End Sub
 
     Sub Rock_Drill(Indice As String)
         Form1.ListBox2.Items.Clear()
         Dim I As Integer
-
+        Console.WriteLine()
         For I = 0 To 50
             If Macchina1(I, 1) = Indice Then Form1.ListBox2.Items.Add(Macchina1(I, 10))
         Next
